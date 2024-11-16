@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+
+{% block title %}Tweets{% endblock %}
+
+{% block content %}
+<h1 class='text-center mt-4'>
+    Twitter</h1>
+<h2 class="text-center mt-3">
+    {% if form.instance.pk %} 
+        Edit Tweet
+    {% else %} 
+        Create Tweet
+    {% endif %}
+</h2>
+
+<!-- Form for creating/editing a tweet -->
+<form method="post" enctype='multipart/form-data' class='tweet-form'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class='btn btn-warning submit-btn mt-3' type='submit'>Submit</button>
+</form>
+
+<!-- Link back to tweet list -->
+<a href="{% url 'tweet_list' %}" class="back-link mt-4 d-block text-center">
+    &larr; Back to tweet list
+</a>
+
+<!-- Custom CSS -->
+<style>
+    /* General form styling */
+    .tweet-form {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: #1f1f1f;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        color: #e0e0e0;
+    }
+
+    .tweet-form input, .tweet-form textarea, .tweet-form select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #2a2a2a;
+        color: #e0e0e0;
+    }
+
+    .tweet-form input:focus, .tweet-form textarea:focus, .tweet-form select:focus {
+        border-color: #ffc107;
+        outline: none;
+        box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+    }
+
+    /* Button styling */
+    .submit-btn {
+        width: 100%;
+        padding: 10px 0;
+        font-size: 1.1rem;
+        border-radius: 25px;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        background-color: #ffca2c;
+    }
+
+    /* Link styling */
+    .back-link {
+        font-size: 1rem;
+        color: #ffc107;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+        color: #e0e0e0;
+    }
+
+    /* Title styling */
+    h1, h2 {
+        color: #ffffff;
+    }
+
+    h2 {
+        margin-top: 20px;
+    }
+
+    /* Responsive styling */
+    @media (max-width: 768px) {
+        .tweet-form {
+            padding: 15px;
+        }
+
+        .submit-btn {
+            font-size: 1rem;
+        }
+
+        .back-link {
+            font-size: 0.9rem;
+        }
+    }
+</style>
+
+{% endblock %}

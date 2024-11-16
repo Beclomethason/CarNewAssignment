@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block title %}Tweet Details{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="tweet-detail-feed">
+        <img src="{{tweet.photo.url}}" class="tweet-image" alt="Tweet image">
+    </div>   
+</div>
+{% if tweet.user == user %}
+    <!-- Show edit option only to the tweet author -->
+    <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-danger">Delete</a>
+{% elif user.is_superuser %}
+    <!-- Admins can only see the delete option -->
+    <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-danger">Delete</a>
+{% endif %}
+
+    <h5 class="tweet-text">Article by-: {{tweet.user.username}}</h5> 
+    <p class="tweet-text">{{tweet.text}}</p>
+<p class="tweet-text">Posted on {{ tweet.created_at|date:"F j, Y, g:i a" }}</p>         
+</div>
+
+<style>
+    .tweet-detail-feed {
+        width: 80%;  /* Increased width for better content display */
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #e0e0e0; /* Subtle border */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
+        background-color: rgba(255, 255, 255, 0.95); /* White background with slight transparency */
+    }
+
+    .tweet-image {
+        width: 100%;  /* Full width */
+        height: auto;  /* Maintain aspect ratio */
+        border-radius: 10px 10px 0 0;  /* Rounded top corners */
+        margin-bottom: 15px; /* Spacing below the image */
+    }
+
+    .tweet-description {
+        padding: 40px;
+    }
+    .tweet-date small {
+        color: #ffffff; /* Set the text content to black */
+    }
+    .tweet-username {
+        font-size: 1.8rem;  /* Larger username */
+        margin-bottom: 10px;
+        color: #333;  /* Darker color for username */
+        font-weight: bold;  /* Bold text for username */
+    }
+
+    .tweet-text {
+        font-size: 1.5rem;  /* Larger text size */
+        color: #ffffff;  /* Dark gray for tweet content */
+        line-height: 1.6;  /* Better line spacing */
+        margin-bottom: 15px;  /* Space between text and date */
+        
+    }
+
+    .tweet-date {
+        font-size: 1.2rem;  /* Smaller font for date */
+        color: #020000;  /* Muted color for the date */
+    }
+
+    /* For smaller screens */
+    @media (max-width: 768px) {
+        .tweet-detail-feed {
+            width: 90%;  /* Responsive design for smaller screens */
+        }
+
+        .tweet-username {
+            font-size: 1.5rem; /* Adjust font size for smaller screens */
+        }
+
+        .tweet-text {
+            font-size: 1.1rem; /* Adjust tweet text size */
+        }
+    }
+</style>
+
+{% endblock %}

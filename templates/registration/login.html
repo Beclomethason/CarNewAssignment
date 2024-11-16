@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="login-container">
+    <h2>Login</h2>
+    <form method='post'>
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-primary login-btn">Login</button>
+    </form>
+    <p class="register-text">Don't have an account? 
+        <a href="{% url "register" %}">Register</a>
+    </p>
+</div>
+
+<!-- Custom CSS -->
+<style>
+    /* Centering the login form */
+    .login-container {
+        max-width: 400px;
+        margin: 80px auto; /* Center the form vertically and horizontally */
+        padding: 20px;
+        background-color: #fff; /* White background */
+        border: 1px solid #e0e0e0; /* Light border */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+
+    /* Styling the login header */
+    .login-container h2 {
+        text-align: center;
+        color: #333; /* Darker color */
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    /* Form fields styling */
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    form p {
+        margin-bottom: 15px;
+    }
+
+    form input[type="text"],
+    form input[type="password"],
+    form select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc; /* Light border */
+        font-size: 1rem;
+    }
+
+    /* Login button styling */
+    .login-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff; /* Primary color */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Hover effect for the button */
+    .login-btn:hover {
+        background-color: #0056b3; /* Darker shade on hover */
+    }
+
+    /* Register link styling */
+    .register-text {
+        text-align: center;
+        margin-top: 20px;
+        color: #555; /* Muted color */
+    }
+
+    .register-text a {
+        color: #007bff; /* Link color */
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .register-text a:hover {
+        text-decoration: underline;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+        .login-container {
+            width: 90%; /* Adjust width for smaller screens */
+        }
+    }
+</style>
+
+{% endblock %}

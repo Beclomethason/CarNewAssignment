@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block title %}Tweets{% endblock %}
+
+{% block content %}
+<h1 class='text-center mt-4'>Welcome to Twitter</h1>
+
+<a class='btn btn-primary create-tweet-btn mb-4' href="{% url 'tweet_create' %}">Create a tweet</a>
+
+<div class="tweet-container container">
+  <div class="row justify-content-center">
+    {% for tweet in tweets %}
+      <div class="col-md-3 mb-4">
+        <a href="{% url 'tweet_detail' tweet.id %}" class="tweet-card-link">
+          <div class="card tweet-card">
+            <img src="{{tweet.photo.url}}" class="card-img-top" alt="Tweet image">
+            <div class="card-body">
+              <h5 class="card-title">{{tweet.user.username}}</h5>
+              <p class="card-text">{{tweet.text|truncatechars:50}}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  /* General styling */
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  .tweet-container {
+    margin-top: 20px;
+  }
+
+  /* Card styling */
+  .tweet-card {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(245, 244, 244, 0.1);
+    transition: transform 0.3s ease;
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color */
+  }
+
+  .tweet-card:hover {
+    transform: scale(1.05);
+  }
+
+  .tweet-card img {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .card-body {
+    padding: 15px;
+    text-align: center;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    color: white;
+  }
+
+  .card-text {
+    white-space: nowrap; /* Restrict text to single line */
+    overflow: hidden; /* Hide text that overflows */
+    text-overflow: ellipsis; /* Add ellipsis (...) at the end */
+    color: rgb(255, 255, 255);
+  }
+
+  .btn {
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 0.9rem;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+</style>
+
+{% endblock %}
